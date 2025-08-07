@@ -1,0 +1,91 @@
+@import url('./animations/animations.css');
+
+.container__home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.parrafo {
+    letter-spacing: 1px;
+    margin-top: 10px;
+}
+
+.container__introduccion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0px 15px;
+    max-width: 600px;
+}
+
+.container__tituloAnimado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spanLeft {
+    display: inline-block;
+    margin: 3px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    animation: appearLeft 2s forwards;
+}
+
+.spanRight {
+    display: inline-block;
+    margin: 3px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    animation: appearRight 2s forwards;
+}
+
+.img__home {
+    margin: 2em;
+    width: 200px;
+    box-shadow: black 1px 2px 5px 1px;
+}
+
+.icon__reciclar {
+    width: 20px;
+}
+
+.btn__home {
+    align-self: center;
+    margin: 2em;
+    padding: 5px;
+    background: none;
+    border-radius: 8px;
+    letter-spacing: 1px;
+    transition-property: background;
+    transition-duration: .5s;
+}
+
+.btn__home:hover {
+    background-color: #b3dace;
+}
+
+@media screen and (min-width: 425px) {
+    .img__home {
+        width: 280px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .img__home {
+        margin: 3em;
+        width: 340px;
+    }
+
+    .parrafo {
+        margin-top: 2em;
+    }
+
+    .btn__home {
+        margin: 3em;
+    }
+}

@@ -1,0 +1,140 @@
+.container__detail{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 500px;
+    height: 100%;
+    margin-top: 20px;
+}
+
+.container__desc {
+    display: flex;
+    flex-direction: column;
+}
+
+.container__detail h1 {
+    margin-top: 20px;
+    font-size: 25px;
+    font-style: italic;
+    letter-spacing: 3px;
+}
+
+
+.item__detail {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #eeeeee;
+    border-bottom: 1px solid black;
+    position: relative;
+    margin: 1em;
+    border-radius: 10px;
+    box-shadow: #d3d1d1 1px 1px 5px 0px;
+    animation: appear3d 1s backwards;
+}
+
+.item__detail p {
+    letter-spacing: 1px;
+    margin: 2px;
+}
+
+.span__detail{
+    font-weight: bold;
+}
+
+.btn__cerrar {
+    padding: 3px;
+    border: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.btn__cerrar img {
+    width: 25px;
+    transition-property: width;
+    transition-duration: 0.3s;
+    border-radius: 100%;
+}
+
+.btn__cerrar img:hover {
+    width: 28px;
+}
+
+.img__detail {
+    width: 100%;
+    padding: 5px;
+    margin: 3em;
+}
+
+.btn__add {
+    letter-spacing: 2px;
+    margin: 10px;
+    padding: 2px;
+}
+
+.slider {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+}
+
+
+.slider__img {
+    flex-shrink: 0;
+    width: 100%;
+}
+
+.slide__slider {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+}
+
+.slider__btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  padding: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.slider__btn.prev {
+  left: 0;
+}
+
+.slider__btn.next {
+  right: 0;
+}
+
+@media screen and (min-width: 425px) and (max-width: 767px) {
+    .item__detail {
+        width: 350px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .item__detail {
+        width: 450px;
+    }
+}
+
+@media (min-width: 300px) and (max-width: 768px) {
+  .slider__img {
+    width: 100%;
+  }
+}
+
+@media (min-width: 769px) {
+  .slider__img {
+    width: calc(100% / 3);
+  }
+}

@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+@import url('./styles/animations/animations.css');
+@import url('./styles/header.css');
+@import url('./styles/home.css');
+@import url('./styles/prendas.css');
+@import url('./styles/contacto.css');
+@import url('./styles/detail.css');
+@import url('./styles/car.css');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Source Code Pro", monospace;
+}
+
+body {
+      background-color: #ebf0ee;  
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;  
+  }
+  
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#home, #prendas, #contacto, #carrito {
+  animation: appear 2.4s backwards;
+}
