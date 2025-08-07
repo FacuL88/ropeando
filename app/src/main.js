@@ -69,8 +69,35 @@ function renderSection(section, id = null) {
       break;
     case 'preventDetail':
       main.innerHTML = prevenDetail(id)
+      setupSlider()
       break;
     default:
       main.innerHTML = '<h1>Sección no encontrada</h1>'
   }
+}
+
+function setupSlider() {
+  const slider = document.querySelector('.slide__slider');
+  const images = document.querySelectorAll('.slider__img');
+  const btnPrev = document.querySelector('.slider__btn.prev');
+  const btnNext = document.querySelector('.slider__btn.next');
+
+  if (!slider || images.length === 0 || !btnPrev || !btnNext) return;
+
+  let currentIndex = 0;
+  const imgWidth = images[0].offsetWidth + 20; // image + margin
+
+  btnPrev.addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      slider.scrollLeft = currentIndex * imgWidth;
+    }
+  });
+
+  btnNext.addEventListener('click', () => {
+    if (currentIndex < images.length - 1) {
+      currentIndex++;
+      slider.scrollLeft = currentIndex * imgWidth;
+    }
+  });
 }

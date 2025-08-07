@@ -9,7 +9,7 @@ export function prevenDetail(id) {
     }
 
     const sliderImages = (items || [])
-    .slice(0, 5) // 👈 Esto limita a máximo 5 imágenes
+    .slice(0, 10) // 👈 Esto limita a máximo 5 imágenes
     .map(item => `
         <img class="slider__img" src="${item.img}" alt="imagen del producto"/>
     `)
@@ -33,9 +33,11 @@ export function prevenDetail(id) {
             </div>
             <h2>Tambien te pueden interesar</h2>
             <div class="slider">
-                <div class="slide__slider">
+                <div class="slider__wrapper">
                     <button class="slider__btn prev"> < </button>
-                        ${sliderImages}
+                <div class="slide__slider">
+                    ${sliderImages}
+                </div>
                     <button class="slider__btn next"> > </button>
                 </div>
             </div>
