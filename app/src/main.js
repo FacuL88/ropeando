@@ -69,35 +69,33 @@ function renderSection(section, id = null) {
       break;
     case 'preventDetail':
       main.innerHTML = prevenDetail(id)
-      setupSlider()
+      sliderMovement();
       break;
     default:
       main.innerHTML = '<h1>Sección no encontrada</h1>'
   }
 }
 
-function setupSlider() {
-  const slider = document.querySelector('.slide__slider');
-  const images = document.querySelectorAll('.slider__img');
-  const btnPrev = document.querySelector('.slider__btn.prev');
-  const btnNext = document.querySelector('.slider__btn.next');
+function sliderMovement() {
+    const prev = document.querySelector('.prev');
+    const next = document.querySelector('.next');
+    const slider = document.querySelector('.slide__slider');
 
-  if (!slider || images.length === 0 || !btnPrev || !btnNext) return;
+    if (!slider || !prev || !next) return;
 
-  let currentIndex = 0;
-  const imgWidth = images[0].offsetWidth + 20; // image + margin
+    const scrollAmount = 200; // Puedes ajustar este valor según el tamaño de tus imágenes
 
-  btnPrev.addEventListener('click', () => {
-    if (currentIndex > 0) {
-      currentIndex--;
-      slider.scrollLeft = currentIndex * imgWidth;
-    }
-  });
+    prev.addEventListener('click', () => {
+        slider.scrollBy({
+            left: -scrollAmount,
+            behavior: 'smooth'
+        });
+    });
 
-  btnNext.addEventListener('click', () => {
-    if (currentIndex < images.length - 1) {
-      currentIndex++;
-      slider.scrollLeft = currentIndex * imgWidth;
-    }
-  });
+    next.addEventListener('click', () => {
+        slider.scrollBy({
+            left: scrollAmount,
+            behavior: 'smooth'
+        });
+    });
 }
