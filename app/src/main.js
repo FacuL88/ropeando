@@ -1,101 +1,117 @@
 import { items } from './provider';
-import { renderHeader } from './sections/renderHeader'
+import { renderHeader } from './sections/renderHeader';
 import { renderHome } from './sections/renderHome';
 import { renderPrendas } from './sections/renderPrendas';
-import {renderContacto} from './sections/renderContacto';
+import { renderContacto } from './sections/renderContacto';
 import { renderCar } from './sections/renderCar';
-import './style.css'
-import { prevenDetail } from './sections/preventDetail';
+import { preventDetail } from './sections/preventDetail';
+import './style.css';
 
-document.querySelector('#app').innerHTML = `
-  <div class="container">
+const app = document.querySelector('#app');
+const carrito = [];
+
+// Estructura Base
+app.innerHTML = `
+  <div class="wrapper">
     <header class="header">
-      <nav id="nav" class="nav">
-        ${renderHeader()}
-      </nav>
+      <nav id="nav" class="nav">${renderHeader()}</nav>
     </header>
-    <main class="main">
-
-    </main>
+    <main class="main"></main>
   </div>
-`
+`;
 
-const carrito = []; // carrito global
+const mainContainer = document.querySelector('.main');
 
-// Renderizar HOME por defecto al cargar
-renderSection('home');
+// Sistema de notificaciones
+function showNotification(message) {
+  const notification = document.createElement('div');
+  notification.className = 'notification';
+  notification.textContent = message;
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.classList.add('notification--show');
+  }, 100);
+  
+  setTimeout(() => {
+    notification.classList.remove('notification--show');
+    setTimeout(() => notification.remove(), 300);
+  }, 2500);
+}
 
-// Escuchar los click en los data-section
-
-document.addEventListener('click', (event) => {
-  const section = event.target.dataset.section
-  const itemId = event.target.dataset.id;
-
-  if (section === 'carrito' && itemId) {
-    const item = items.find(i => i.id === parseInt(itemId));
-    if (item && !carrito.find(i => i.id === itemId)) {
-      carrito.push(item)
-    }
-  }
+// Delegación de Eventos Global (Navegación y Carrito)
+document.addEventListener('click', (e) => {
+  const { section, id } = e.target.dataset;
 
   if (section) {
-    renderSection(section, itemId)
+    // Si el click es "Agregar al carrito"
+    if (section === 'carrito' && id) {
+      const item = items.find(i => i.id === parseInt(id));
+      if (item) {
+        const existingItem = carrito.find(i => i.id === parseInt(id));
+        if (existingItem) {
+          existingItem.quantity = (existingItem.quantity || 1) + 1;
+        } else {
+          carrito.push({ ...item, quantity: 1 });
+        }
+        showNotification(`${item.name} agregado al carrito ✨`);
+      }
+    }
+    renderSection(section, id);
   }
-})
-
+});
 
 function renderSection(section, id = null) {
-  const main = document.querySelector('.main')
+  // Limpieza de scroll al cambiar de sección
+  window.scrollTo(0, 0);
 
   switch (section) {
     case 'home':
-      main.innerHTML = renderHome() // 👈 renderHome debe devolver un string
+      mainContainer.innerHTML = renderHome();
       break;
     case 'prendas':
-      main.innerHTML = renderPrendas()
+      mainContainer.innerHTML = renderPrendas();
       break;
     case 'contacto':
-      main.innerHTML = renderContacto()
+      mainContainer.innerHTML = renderContacto();
       break;
     case 'carrito':
-      main.innerHTML = renderCar(carrito)
-      const btnVaciar = document.querySelector('.btn__vaciar');
-      if (btnVaciar) {
-        btnVaciar.addEventListener('click', () => {
-          carrito.length = 0;
-          renderSection('carrito');
-        });
-      }
+      mainContainer.innerHTML = renderCar(carrito);
+      attachCartEvents();
       break;
     case 'preventDetail':
-      main.innerHTML = prevenDetail(id)
-      sliderMovement();
+      mainContainer.innerHTML = preventDetail(id);
       break;
     default:
-      main.innerHTML = '<h1>Sección no encontrada</h1>'
+      mainContainer.innerHTML = '<h2>Sección no encontrada</h2>';
   }
 }
 
-function sliderMovement() {
-    const prev = document.querySelector('.prev');
-    const next = document.querySelector('.next');
-    const slider = document.querySelector('.slide__slider');
+// Lógica específica para el Carrito (Vaciar y Comprar)
+function attachCartEvents() {
+  const btnVaciar = document.querySelector('.btn__vaciar');
+  const btnComprar = document.querySelector('.btn__comprar');
 
-    if (!slider || !prev || !next) return;
+  btnVaciar?.addEventListener('click', () => {
+    carrito.length = 0;
+    renderSection('carrito');
+  });
 
-    const scrollAmount = 200; // Puedes ajustar este valor según el tamaño de tus imágenes
-
-    prev.addEventListener('click', () => {
-        slider.scrollBy({
-            left: -scrollAmount,
-            behavior: 'smooth'
-        });
-    });
-
-    next.addEventListener('click', () => {
-        slider.scrollBy({
-            left: scrollAmount,
-            behavior: 'smooth'
-        });
-    });
+  btnComprar?.addEventListener('click', () => {
+    if (carrito.length === 0) return showNotification('El carrito está vacío');
+    
+    // Simulación de ticket de compra profesional
+    const token = Math.random().toString(36).substring(2, 10).toUpperCase();
+    mainContainer.innerHTML = `
+      <div class="comprobante">
+        <h2>¡Gracias por tu compra!</h2>
+        <p>Tu orden <strong>#${token}</strong> ha sido procesada.</p>
+        <button class="btn__item" data-section="prendas">Seguir comprando</button>
+      </div>
+    `;
+    carrito.length = 0;
+  });
 }
+
+// Inicio
+renderSection('home');

@@ -1,26 +1,26 @@
 import { items } from "../provider"
 
 export function renderPrendas() {
-
     return `
         <div id="prendas" class="container__prendas">
-            <h1>Bebe</h1>
-            <div class="container__items">
-                <div class="items">
-                    ${items.map(item => `
-                        <div class="item">
-                            <img src="${item.img}" alt="Imagen no disponible" />
-                            <h2>${item.name}</h2>
-                            <p>${item.desc}</p>
-                            <p>Precio: $${item.price}</p>
-                            <button data-section="preventDetail" data-id="${item.id}" class="btn__item">ver detalles</button>
+            <header class="section__header">
+                <h1>Colección Bebé</h1>
+                <p>Piezas únicas con historia</p>
+            </header>
+            <div class="items">
+                ${items.map(item => `
+                    <article class="item">
+                        <div class="item__img-container">
+                            <img src="${item.img}" alt="${item.name}" loading="lazy" />
                         </div>
-                        `
-                    ).join("")}
-                </div>
+                        <div class="item__info">
+                            <h3>${item.name}</h3>
+                            <span class="item__price">$${item.price.toLocaleString()}</span>
+                            <button data-section="preventDetail" data-id="${item.id}" class="btn__item">Ver detalles</button>
+                        </div>
+                    </article>
+                `).join("")}
             </div>
-            <h6>*Las prendas son unicas, al realizar la compra de un item, el mismo desaparecera automaticamente del catalogo de prendas.</h6>
         </div>
-            
-    `
+    `;
 }
