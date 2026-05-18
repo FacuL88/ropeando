@@ -10,6 +10,15 @@ import './style.css';
 const app = document.querySelector('#app');
 const carrito = [];
 
+// Función para actualizar el header con el conteo del carrito
+function updateHeader() {
+  const nav = document.querySelector('#nav');
+  if (nav) {
+    const totalCount = carrito.reduce((acc, item) => acc + (item.quantity || 1), 0);
+    nav.innerHTML = renderHeader(totalCount);
+  }
+}
+
 // Estructura Base
 app.innerHTML = `
   <div class="wrapper">
@@ -55,6 +64,7 @@ document.addEventListener('click', (e) => {
           carrito.push({ ...item, quantity: 1 });
         }
         showNotification(`${item.name} agregado al carrito ✨`);
+        updateHeader();
       }
     }
     renderSection(section, id);
@@ -94,6 +104,7 @@ function attachCartEvents() {
 
   btnVaciar?.addEventListener('click', () => {
     carrito.length = 0;
+    updateHeader();
     renderSection('carrito');
   });
 
@@ -110,6 +121,7 @@ function attachCartEvents() {
       </div>
     `;
     carrito.length = 0;
+    updateHeader();
   });
 }
 

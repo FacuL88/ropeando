@@ -133,6 +133,7 @@ body::-webkit-scrollbar-track { background: transparent; }
   padding: 0.5rem;
   border-radius: var(--border-radius-sm);
   transition: var(--transition);
+  position: relative;
 }
 
 .nav__cart-container:hover {
@@ -143,6 +144,37 @@ body::-webkit-scrollbar-track { background: transparent; }
   width: 24px;
   height: 24px;
   object-fit: contain;
+}
+
+.cart__badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--accent);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  animation: badgePop 0.3s ease-out;
+}
+
+@keyframes badgePop {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* Notificaciones Minimalistas */
